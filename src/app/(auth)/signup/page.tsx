@@ -2,58 +2,86 @@ import colors from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 
 export default function Signup() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  function handleSignup() {
+    console.log({ name, email, password });
+  }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1, backgroundColor: colors.white }}>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Pressable style={styles.backButton} onPress={() => router.back()}>
+              <Ionicons name="arrow-back" size={24} color={colors.white} />
+            </Pressable>
 
-        <Pressable style={styles.backButton} onPress={() => router.back()}>
-            <Ionicons name="arrow-back" size={24} color={colors.white}/> 
-        </Pressable>
+            <Text style={styles.logoText}>
+              Dev<Text style={{ color: colors.green }}>App</Text>
+            </Text>
+            <Text style={styles.slogan}>Criar uma conta</Text>
+          </View>
+          <View style={styles.form}>
+            <View>
+              <Text style={styles.label}>Nome Completo</Text>
+              <TextInput
+                placeholder="Digite seu nome..."
+                style={styles.input}
+                value={name}
+                onChangeText={setName}
+              />
+            </View>
 
-        <Text style={styles.logoText}>
-          Dev<Text style={{ color: colors.green }}>App</Text>
-        </Text>
-        <Text style={styles.slogan}>Criar uma conta</Text>
-      </View>
-      <View style={styles.form}>
-        <View>
-          <Text style={styles.label}>Nome Completo</Text>
-          <TextInput placeholder="Digite seu nome..." style={styles.input} />
+            <View>
+              <Text style={styles.label}>Email</Text>
+              <TextInput
+                value={email}
+                onChangeText={setEmail}
+                placeholder="Digite seu email..."
+                style={styles.input}
+              />
+            </View>
+
+            <View>
+              <Text style={styles.label}>Senha</Text>
+              <TextInput
+                value={password}
+                onChangeText={setPassword}
+                placeholder="Digite sua senha..."
+                secureTextEntry
+                style={styles.input}
+              />
+            </View>
+
+            <Pressable style={styles.button} onPress={handleSignup}>
+              <Text style={styles.buttonText}>Cadastrar</Text>
+            </Pressable>
+          </View>
         </View>
-
-        <View>
-          <Text style={styles.label}>Email</Text>
-          <TextInput placeholder="Digite seu email..." style={styles.input} />
-        </View>
-
-        <View>
-          <Text style={styles.label}>Senha</Text>
-          <TextInput
-            placeholder="Digite sua senha..."
-            secureTextEntry
-            style={styles.input}
-          />
-        </View>
-
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Cadastrar</Text>
-        </Pressable>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 80,
+    paddingTop: 34,
     backgroundColor: colors.zinc,
   },
   header: {
@@ -112,5 +140,5 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
     marginBottom: 8,
-  }
+  },
 });

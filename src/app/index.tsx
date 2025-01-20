@@ -1,8 +1,20 @@
 import colors from "@/constants/colors";
 import { Link } from "expo-router";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  function handleSignin() {
+    console.log({
+      email,
+      password,
+    });
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -14,24 +26,31 @@ export default function Login() {
       <View style={styles.form}>
         <View>
           <Text style={styles.label}>Email</Text>
-          <TextInput placeholder="Digite seu email..." style={styles.input} />
+          <TextInput
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Digite seu email..."
+            style={styles.input}
+          />
         </View>
 
         <View>
           <Text style={styles.label}>Senha</Text>
           <TextInput
+            value={password}
+            onChangeText={setPassword}
             placeholder="Digite sua senha..."
             secureTextEntry
             style={styles.input}
           />
         </View>
 
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={handleSignin}>
           <Text style={styles.buttonText}>Entrar</Text>
         </Pressable>
 
         <Link href="/(auth)/signup/page" style={styles.link}>
-            <Text>Ainda não possui uma conta? Cadastre-se</Text>
+          <Text>Ainda não possui uma conta? Cadastre-se</Text>
         </Link>
       </View>
     </View>
@@ -97,5 +116,5 @@ const styles = StyleSheet.create({
   link: {
     marginTop: 16,
     textAlign: "center",
-  }
+  },
 });
