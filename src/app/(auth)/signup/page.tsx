@@ -89,7 +89,7 @@ export default function Signup() {
             </View>
 
             <Pressable style={styles.button} onPress={handleSignup}>
-              <Text style={styles.buttonText}>Cadastrar</Text>
+              <Text style={styles.buttonText}>{loading ? "Carregando..." : "Cadastrar"}</Text>
             </Pressable>
           </View>
         </View>
