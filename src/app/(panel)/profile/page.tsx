@@ -3,7 +3,7 @@ import { supabase } from "@/src/lib/supabase";
 import { Alert, Button, StyleSheet, Text, View } from "react-native";
 
 export default function Profile() {
-    const { setAuth } = useAuth();
+    const { setAuth, user } = useAuth();
 
     async function handleSignOut() {
         const { error } = await supabase.auth.signOut();
@@ -18,6 +18,7 @@ export default function Profile() {
     return (
         <View style={styles.container}>
             <Text>Perfil</Text>
+            <Text>{user?.email}</Text>
             <Button title="Deslogar" onPress={handleSignOut} />
         </View>
     )
